@@ -1,0 +1,36 @@
+{
+  "name": "Test",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build; cd release; git pull; cp -r ../dist/* .; cd -",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "core-js": "^3.20.3",
+    "eth-sig-util": "^3.0.1",
+    "ethereumjs-abi": "^0.6.8",
+    "ethereumjs-util": "^7.0.9",
+    "moralis": "0.0.183",
+    "vue": "^2.6.10",
+    "vue-resource": "^1.5.2",
+    "vue-router": "^3.1.3",
+    "vuetify": "^2.6.2",
+    "vuex": "^3.0.1",
+    "web3": "^1.3.4"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.12.0",
+    "@vue/cli-plugin-eslint": "^3.11.0",
+    "@vue/cli-service": "^3.0.5",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "sass": "~1.32.12",
+    "sass-loader": "^7.1.0",
+    "vue-cli-plugin-vuetify": "^0.6.3",
+    "vue-template-compiler": "^2.6.10",
+    "vuetify-loader": "^1.2.2"
+  }
+}
