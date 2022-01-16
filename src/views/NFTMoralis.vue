@@ -109,6 +109,9 @@
               <v-tab key="tab2" class="">
                 Trading History
               </v-tab>
+              <v-tab key="tab3" class="">
+                Lowest NFT Price
+              </v-tab>
             </v-tabs>
 
             <v-tabs-items v-model="tab">
@@ -131,7 +134,19 @@
 
               </v-tab-item>
 
+              <v-tab-item key="tab3" class="py-4 px-2">
+
+                <NFTLowestPriceMoralis
+                  :contractaddress="contractAddress"
+                  :networkid="network.id"
+                >
+                </NFTLowestPriceMoralis>
+
+              </v-tab-item>
+
             </v-tabs-items>
+
+
 
 
           </div>
@@ -153,6 +168,7 @@ import UserActivityListOpenSea from "@/components/UserActivityListOpenSea"
 import UserActivityOpenSea from "@/components/UserActivityOpenSea"
 import Preloader from "@/components/Preloader"
 import UserSummary from "@/components/UserSummary"
+import NFTLowestPriceMoralis from "@/components/NFTLowestPriceMoralis"
 import {mapActions, mapGetters, mapState} from 'vuex'
 // import { getCurrentNetworkID, getCurrentAccount } from '@/utils/utils'
 import { config } from '@/config'
@@ -161,6 +177,7 @@ export default {
   components: {
     Preloader,
     NFTCardMoralis,
+    NFTLowestPriceMoralis,
     UserActivityListOpenSea,
     UserActivityOpenSea,
     UserSummary,
@@ -322,9 +339,6 @@ export default {
       this.NFTLoaded = false
       this.NFTLoadingError = null
       this.initializationDone = false
-      this.likeLoading = false
-      this.addLikedSuccess = false
-      this.removeLikedSuccess = false
       await this.loadNetwork()
       await this.loadAccount()
       this.initializationDone = true
@@ -369,77 +383,6 @@ export default {
         this.NFTLoaded = true
       }
 
-    },
-
-    async addLike () {
-
-      console.log('addLike')
-      this.likeLoading = true
-      this.addLikedSuccess = false
-      this.removeLikedSuccess = false
-
-      try {
-        let columnName = 'nftFollowed'
-        if (this.network.id == 137) {
-          columnName = 'nftFollowedPolygon'
-        }
-        const currentUser = Moralis.User.current()
-        const data = {
-          contractAddress: this.contractAddress,
-          tokenId: this.tokenId
-        }
-        console.log(data)
-        currentUser.addUnique(columnName, data)
-        await currentUser.save()
-        this.addLikedSuccess = true
-        const emitData = {
-          type: 'added',
-          contractAddress: this.contractAddress,
-          token_id: this.tokenId
-        }
-        this.$emit("token-like-change", emitData)
-        this.loadAccount(true)
-      } catch (err) {
-        console.error(err)
-      } finally {
-        this.likeLoading = false
-      }
-    },
-
-    async removeLike () {
-
-      console.log('removeLike')
-
-      this.likeLoading = true
-      this.addLikedSuccess = false
-      this.removeLikedSuccess = false
-
-      try {
-        let columnName = 'nftFollowed'
-        if (this.network.id == 137) {
-          columnName = 'nftFollowedPolygon'
-        }
-        const currentUser = Moralis.User.current()
-        const data = {
-          contractAddress: this.contractAddress,
-          tokenId: this.tokenId
-        }
-        console.log(data)
-        currentUser.remove(columnName, data)
-        await currentUser.save()
-        this.removeLikedSuccess = true
-        const emitData = {
-          type: 'removed',
-          contractAddress: this.contractAddress,
-          token_id: this.tokenId
-        }
-        this.$emit("token-like-change", emitData)
-        this.loadAccount(true)
-      } catch (err) {
-        console.error(err)
-      } finally {
-        this.likeLoading = false
-      }
     },
 
     async handleLikeChange(data) {
