@@ -72,6 +72,7 @@
         :networkid = "network.id"
         :myfollowers = "account.followerList"
         :myfollowees = "account.followeeList"
+        :mynftlikelist = "account.nftLikeList"
         v-on:user-following-change="loadAccount(true)"
       />
 

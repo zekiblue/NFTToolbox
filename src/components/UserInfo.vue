@@ -38,19 +38,7 @@
           <v-card-subtitle v-text="address"></v-card-subtitle>
 
 
-          <div v-if="isMyself">
 
-            <span>{{ myfollowees.length }} Following: </span>
-            <span v-if="myfollowees.length > 0">
-              <UserSummary
-                v-for="(item, i) in myfollowees"
-                :key="i"
-                :address="item"
-                class="mx-1 my-1"
-              ></UserSummary>
-            </span>
-
-          </div>
 
 
           <v-card-actions>
@@ -92,7 +80,53 @@
 
   </div>
 
+  <div v-if="isMyself"  class="mb-3 pa-4 blue lighten-5">
 
+    <div>My Account Watchlist: </div>
+      <v-slide-group v-if="myfollowees.length > 0" class="text-center mx-auto"
+        multiple
+        show-arrows
+      >
+        <v-slide-item
+          v-for="(item, index) in myfollowees"
+          :key="index"
+          v-slot="{ active, toggle }"
+        >
+
+          <UserSummary class="ma-2"
+            :address="item"
+            :frontdigits="4"
+            :enddigits="4"
+          ></UserSummary>
+
+        </v-slide-item>
+
+      </v-slide-group>
+    </span>
+
+  <div>My NFT Watchlist: </div>
+  <v-slide-group v-if="mynftlikelist && mynftlikelist.length > 0" class="text-center mx-auto"
+    multiple
+    show-arrows
+  >
+    <v-slide-item
+      v-for="(item, index) in mynftlikelist"
+      :key="index"
+      v-slot="{ active, toggle }"
+    >
+
+      <NFTShortInfo class="ma-2"
+        :contractaddress="item.contractAddress"
+        :tokenid="item.tokenId"
+        :frontdigits="4"
+        :enddigits="4"
+      ></NFTShortInfo>
+
+    </v-slide-item>
+
+  </v-slide-group>
+
+  </div>
 
   </div>
 </template>
@@ -101,9 +135,10 @@
 import Moralis from 'moralis'
 import { config } from '@/config'
 import UserSummary from "@/components/UserSummary"
+import NFTShortInfo from "@/components/NFTShortInfo"
 import UserSearch from "@/components/UserSearch"
 export default {
-  props: ['address', 'myaddress', 'networkid', 'myfollowers', 'myfollowees'],
+  props: ['address', 'myaddress', 'networkid', 'myfollowers', 'myfollowees', 'mynftlikelist'],
   data () {
     return {
       followLoading: false,
@@ -114,6 +149,7 @@ export default {
   },
   components: {
     UserSummary,
+    NFTShortInfo,
     UserSearch
   },
   computed: {
