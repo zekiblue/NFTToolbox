@@ -73,6 +73,9 @@ async function initNetwork() {
   }
 
   // Start Moralis
+
+  Moralis.enableWeb3()
+
   Moralis.start({
     serverUrl: config.moralisAPI.serverURL,
     appId: config.moralisAPI.applicationID,
@@ -86,8 +89,8 @@ async function initNetwork() {
   })
 
   Moralis.onChainChanged(() => {
-    localStorage.removeItem(config.localStorageKey.login)
-    Moralis.User.logOut()
+    // localStorage.removeItem(config.localStorageKey.login)
+    // Moralis.User.logOut()
     window.location.reload()
   })
 

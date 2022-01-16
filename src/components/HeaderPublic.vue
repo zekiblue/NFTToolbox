@@ -12,39 +12,29 @@
 
       <v-spacer></v-spacer>
 
-      <v-chip v-if="networkId && networkId == 1"
-        class="ma-2"
-        color="light-blue darken-2"
-        text-color="white"
-      >Ethereum Mainnet</v-chip>
-      <v-chip v-if="networkId && networkId == 4"
-        class="ma-2"
-        color="grey"
-        text-color="white"
-      >Rinkeby Testnet</v-chip>
-      <v-chip v-if="networkId && networkId == 137"
-        class="ma-2"
-        color="green"
-        text-color="white"
-      >Polygon</v-chip>
+      <NetworkSwitchBtn></NetworkSwitchBtn>
 
     </v-app-bar>
   </div>
 </template>
 
 <script>
+import NetworkSwitchBtn from "@/components/NetworkSwitchBtn"
 export default {
   data: () => ({
-    networkId: null,
+    // networkId: null,
     drawer: null,
   }),
+  components: {
+    NetworkSwitchBtn,
+  },
   methods: {
     async init() {
-      await new Promise(r => setTimeout(r, 1000))
-      if (window.web3) {
-        // console.log(window.ethereum)
-        this.networkId = await window.web3.eth.net.getId()
-      }
+      // await new Promise(r => setTimeout(r, 1000))
+      // if (window.web3) {
+      //   // console.log(window.ethereum)
+      //   this.networkId = await window.web3.eth.net.getId()
+      // }
     }
   },
   created () {

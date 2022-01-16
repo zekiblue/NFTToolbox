@@ -159,7 +159,7 @@
 
 
           <div v-if="account.nftLikeList.length == 0" class="text-center py-7">
-              Account Watchlist Currently Empty
+              NFT Watchlist Currently Empty
           </div>
 
           <v-simple-table v-if="account.nftLikeList.length > 0" class="mt-4">

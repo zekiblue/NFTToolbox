@@ -33,7 +33,7 @@
               <v-icon large color="error">mdi-alert-circle-outline</v-icon>
             </div>
             <div>
-              Sorry, this network is Not Supported. Please use Mainet or Rinkeby.
+              Sorry, this network is Not Supported. Please use Ethereum Mainet or Polygon.
             </div>
           </v-card-text>
         </v-card>

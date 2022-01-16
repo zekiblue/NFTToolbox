@@ -44,7 +44,8 @@ export default {
       networkName = config.supportedNetworks[networkId]
     }
     else {
-      throw new Error('Network not supported')
+      window.location.href = "/"
+      // throw new Error('Network not supported')
     }
 
     // Get User Account
