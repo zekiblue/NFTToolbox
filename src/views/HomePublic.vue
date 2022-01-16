@@ -43,6 +43,7 @@
       <ul class="text-subtitle-1">
         <li>Account Watchlist: Keep Track of Other NFT Collectors or Traders</li>
         <li>NFT Watchlist: Keep Track of NFTs That You Are Interested</li>
+        <li>Aggregated Activity Monitoring for Watched NFTs and Accounts</li>
       </ul>
     </v-col>
     <v-col class="pa-5 blue lighten-4 rounded-xl mx-2">
