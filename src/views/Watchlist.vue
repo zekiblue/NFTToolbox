@@ -115,6 +115,8 @@
 
         <v-tab-item key="tab1" class="">
 
+          <h2 class="text-center mt-4">Account Watchlist</h2>
+          <div class="text-center mb-4">(Powered by Moralis)</div>
 
           <div v-if="account.followeeList.length == 0" class="text-center py-7">
               Account Watchlist Currently Empty
@@ -157,6 +159,8 @@
 
         <v-tab-item key="tab2">
 
+          <h2 class="text-center mt-4">NFT Watchlist</h2>
+          <div class="text-center mb-4">(Powered by Moralis)</div>
 
           <div v-if="account.nftLikeList.length == 0" class="text-center py-7">
               NFT Watchlist Currently Empty

@@ -10,6 +10,7 @@
           Tokens: <span v-if="balanceList.length > 0">({{balanceList.length}})</span>
         </span>
       </div>
+      <div class="text-center mb-4">(Powered by Moralis)</div>
 
       <v-simple-table v-if="loaded" class="mx-3 my-2">
         <template v-slot:default>

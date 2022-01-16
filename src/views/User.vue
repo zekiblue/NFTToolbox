@@ -4,14 +4,12 @@
  <Preloader v-show="!initializationDone" text="loading..."></Preloader>
 
   <v-toolbar v-if="initializationDone" flat dark color="grey darken-2">
-    <v-toolbar-title>
+    <v-toolbar-title class="ml-3 mr-3">
       <v-icon class="mb-1" large color="grey lighten-1">mdi-account</v-icon>
       User
     </v-toolbar-title>
 
-    <v-spacer></v-spacer>
-
-    <v-menu offset-y>
+    <v-menu offset-y class="mr-3">
       <template v-slot:activator="{ on, attrs }">
         <v-btn small
           color="grey lighten-2"
@@ -19,7 +17,7 @@
           v-bind="attrs"
           v-on="on"
         >
-        My Followings
+        Account Watchlist
         </v-btn>
       </template>
       <v-list>
@@ -109,12 +107,11 @@
 
         <v-tab-item key="tab2">
 
-          <UserActivityListMoralis v-if="initializationDone"
-            title="Recent Activites"
+          <EventListOpenSea v-if="initializationDone"
             :useraddress="userAddress"
             :networkid="network.id"
           >
-          </UserActivityListMoralis>
+          </EventListOpenSea>
 
         </v-tab-item>
 
@@ -144,7 +141,7 @@ import NFTListMoralis from "@/components/NFTListMoralis"
 import NFTListNFTPort from "@/components/NFTListNFTPort"
 import UserActivityListNFTPort from "@/components/UserActivityListNFTPort"
 import UserActivityListMoralis from "@/components/UserActivityListMoralis"
-import UserActivityOpenSea from "@/components/UserActivityOpenSea"
+import EventListOpenSea from "@/components/EventListOpenSea"
 import Preloader from "@/components/Preloader"
 import UserSummary from "@/components/UserSummary"
 import UserInfo from "@/components/UserInfo"
@@ -161,7 +158,7 @@ export default {
     NFTListMoralis,
     UserActivityListNFTPort,
     UserActivityListMoralis,
-    UserActivityOpenSea,
+    EventListOpenSea,
     UserSummary,
     UserInfo,
     UserSearch,

@@ -125,12 +125,13 @@
 
               <v-tab-item key="tab2" class="py-4 px-2">
 
-                <UserActivityListOpenSea
+                <EventListOpenSea
+                  :networkid="network.id"
+                  :contractaddress="contractAddress"
+                  :tokenid="tokenId"
                   hidenftinfo
-                  :apiurl="apiURLForActivities"
-                  class="text-body-2"
                 >
-                </UserActivityListOpenSea>
+                </EventListOpenSea>
 
               </v-tab-item>
 
@@ -164,8 +165,7 @@
 <script>
 import Moralis from 'moralis'
 import NFTCardMoralis from "@/components/NFTCardMoralis"
-import UserActivityListOpenSea from "@/components/UserActivityListOpenSea"
-import UserActivityOpenSea from "@/components/UserActivityOpenSea"
+import EventListOpenSea from "@/components/EventListOpenSea"
 import Preloader from "@/components/Preloader"
 import UserSummary from "@/components/UserSummary"
 import NFTLowestPriceMoralis from "@/components/NFTLowestPriceMoralis"
@@ -178,8 +178,7 @@ export default {
     Preloader,
     NFTCardMoralis,
     NFTLowestPriceMoralis,
-    UserActivityListOpenSea,
-    UserActivityOpenSea,
+    EventListOpenSea,
     UserSummary,
   },
   data: () => ({

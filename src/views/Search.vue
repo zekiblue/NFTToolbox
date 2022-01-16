@@ -3,7 +3,10 @@
 
  <Preloader v-show="!initializationDone" text="loading..."></Preloader>
 
-  <v-card v-if="initializationDone" class="mx-auto mt-6 mb-4" max-width="950">
+  <v-card v-if="initializationDone" flat class="mx-auto mt-6 mb-4" max-width="950">
+
+    <h2 class="text-center mt-4">Search</h2>
+    <div class="text-center mb-2">(Powered by NFTPort)</div>
 
     <v-row align="center" class="mx-3">
 

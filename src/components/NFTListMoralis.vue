@@ -11,6 +11,7 @@
           ({{NFTList.length}})
         </span>
       </div>
+      <div class="text-center mb-4">(Powered by Moralis)</div>
 
       <div v-if="NFTList.length == 0"  class="text-center py-7">
         <div v-if="NFTLoadingError">
