@@ -1,6 +1,10 @@
 <template>
 <tr class="text-body-2">
 
+    <td class="text-center text-body-2 text-no-wrap">
+        {{ timeStamp }}
+    </td>
+
     <td v-if="useraddress">
       <v-chip v-if="eventNameDisplay.toLowerCase() == 'buy'" color="green" text-color="white" small>
         {{ eventNameDisplay }}
@@ -78,10 +82,6 @@
 
     <td class="text-center text-body-2 px-1 text-no-wrap">
       <span v-if="info.quantity"> {{ info.quantity }}</span>
-    </td>
-
-    <td class="text-center text-body-2 text-no-wrap">
-        {{ timeStamp }}
     </td>
 
 </tr>

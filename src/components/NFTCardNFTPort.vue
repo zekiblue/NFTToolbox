@@ -61,7 +61,7 @@
         :disabled="likeLoading"
         class="mr-2"
       >
-        <v-icon color="orange accent-4">mdi-heart</v-icon>
+        <v-icon color="orange accent-4">mdi-eye</v-icon>
       </v-btn>
       <v-btn v-else icon
         v-on:click.prevent="addLike"
@@ -69,7 +69,7 @@
         :disabled="likeLoading"
         class="mr-2"
       >
-        <v-icon>mdi-heart-outline</v-icon>
+        <v-icon>mdi-eye-outline</v-icon>
       </v-btn>
 
       <v-btn icon 

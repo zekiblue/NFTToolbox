@@ -122,36 +122,34 @@
               Account Watchlist Currently Empty
           </div>
 
-          <v-simple-table v-if="account.followeeList.length > 0" class="mt-4">
-            <tbody>
 
-              <tr class="text-body-2"
-                v-for="(item, index) in account.followeeList"
-                :key="index"
-              >
+          <v-slide-group v-if="account.followeeList.length > 0" class="blue lighten-5 pa-3 text-center mx-auto mt-4"
+            multiple
+            show-arrows
+          >
+            <v-slide-item
+              v-for="(item, index) in account.followeeList"
+              :key="index"
+              v-slot="{ active, toggle }"
+            >
 
-                <td>
-                  <UserSummary
-                    :address="item"
-                    :frontdigits="4"
-                    :enddigits="4"
-                  ></UserSummary>
-                </td>
+              <UserSummary class="ma-2"
+                :address="item"
+                :frontdigits="4"
+                :enddigits="4"
+              ></UserSummary>
 
-                <td>
-                  {{ item }}
-                </td>
+            </v-slide-item>
 
-                <td>
-                  <v-btn icon :to="{ name: 'user', params: {userAddress: item} }">
-                    <v-icon>mdi-play</v-icon>
-                  </v-btn>
-                </td>
+          </v-slide-group>
 
-              </tr>
 
-            </tbody>
-          </v-simple-table>
+          <EventListOpenSea v-if="initializationDone"
+            :listofuseraddress="account.followeeList"
+            :networkid="network.id"
+            multiple
+          >
+          </EventListOpenSea>
 
 
         </v-tab-item>
@@ -166,51 +164,34 @@
               NFT Watchlist Currently Empty
           </div>
 
-          <v-simple-table v-if="account.nftLikeList.length > 0" class="mt-4">
-            <tbody>
+          <v-slide-group v-if="account.nftLikeList.length > 0" class="blue lighten-5 pa-3 mx-auto mt-4"
+            multiple
+            show-arrows
+          >
+            <v-slide-item
+              v-for="(item, index) in account.nftLikeList"
+              :key="index"
+              v-slot="{ active, toggle }"
+            >
 
-              <tr class="text-body-2"
-                v-for="(item, index) in account.nftLikeList"
-                :key="index"
-              >
+              <NFTShortInfo class="ma-2"
+                :contractaddress="item.contractAddress"
+                :tokenid="item.tokenId"
+                :frontdigits="4"
+                :enddigits="4"
+              ></NFTShortInfo>
 
-                <td>
+            </v-slide-item>
 
-                  <NFTShortInfo
-                    :contractaddress="item.contractAddress"
-                    :tokenid="item.tokenId"
-                    :frontdigits="4"
-                    :enddigits="4"
-                  ></NFTShortInfo>
+          </v-slide-group>
 
-                </td>
 
-                <td>
-                  {{ item.contractAddress }}
-                </td>
-
-                <td>
-                  <span v-if="item.tokenId.length > 5">
-                    {{ item.tokenId.substring(0, 4) + '...' + item.tokenId.substring(item.tokenId.length - 4) }}
-                  </span>
-                  <span v-else>
-                    {{ item.tokenId }}
-                  </span>
-                </td>
-
-                <td>
-                  <v-btn icon
-                    :to="{ name: 'nft', params: {contractAddress: item.contractAddress, tokenId: item.tokenId } }"
-                  >
-                    <v-icon>mdi-play</v-icon>
-                  </v-btn>
-                </td>
-
-              </tr>
-
-            </tbody>
-          </v-simple-table>
-
+          <EventListOpenSea v-if="initializationDone"
+            :listofnft="account.nftLikeList"
+            :networkid="network.id"
+            multiple
+          >
+          </EventListOpenSea>
 
         </v-tab-item>
 
@@ -230,7 +211,7 @@ import NFTListMoralis from "@/components/NFTListMoralis"
 import NFTListNFTPort from "@/components/NFTListNFTPort"
 import UserActivityListNFTPort from "@/components/UserActivityListNFTPort"
 import UserActivityListMoralis from "@/components/UserActivityListMoralis"
-import UserActivityOpenSea from "@/components/UserActivityOpenSea"
+import EventListOpenSea from "@/components/EventListOpenSea"
 import Preloader from "@/components/Preloader"
 import UserSummary from "@/components/UserSummary"
 import NFTShortInfo from "@/components/NFTShortInfo"
@@ -248,7 +229,7 @@ export default {
     NFTListMoralis,
     UserActivityListNFTPort,
     UserActivityListMoralis,
-    UserActivityOpenSea,
+    EventListOpenSea,
     UserSummary,
     NFTShortInfo,
     UserInfo,

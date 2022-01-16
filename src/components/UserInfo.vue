@@ -62,7 +62,7 @@
                     @click="followUser" :disabled="followLoading"
                     v-bind="attrs"v-on="on"
                   >
-                    Follow
+                    <v-icon>mdi-eye-plus</v-icon> &nbsp; Add to Watchlist
                   </v-btn>
                 </template>
                 <span><small>Click to follow this user</small></span>
@@ -72,14 +72,15 @@
             <span v-if="!isMyself && imFollowingThisUser == true">
               <v-tooltip bottom>
                 <template v-slot:activator="{ on, attrs }">
-                  <v-btn small rounded depressed color="success"
+                  <v-btn small rounded depressed color="amber darken-3"
+                    style="color: white !important"
                     @click="unfollowUser" :disabled="followLoading"
                     v-bind="attrs" v-on="on"
                   >
-                    Following
+                    <v-icon>mdi-eye</v-icon> &nbsp; Watched
                   </v-btn>
                 </template>
-                <span><small>Click to unfollow this user</small></span>
+                <span><small>Click to remove from watchlist</small></span>
               </v-tooltip>
             </span>
 

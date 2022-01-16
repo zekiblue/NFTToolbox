@@ -63,6 +63,9 @@ export default {
     contractaddress: { type: String, default: '' },
     tokenid: { type: String, default: '' },
     hidenftinfo: { type: Boolean, default: false },
+    multiple: { type: Boolean, default: false },
+    listofuseraddress: { type: Array, },
+    listofnft: { type: Array, },
   },
   components: {
     Preloader,
@@ -94,6 +97,11 @@ export default {
     },
 
     async getEventListUsingOpenSea() {
+
+      if (this.multiple) {
+        await this.getMultipleEventsUsingOpenSea()
+        return
+      }
 
       this.activityLoading = true
 
@@ -151,6 +159,115 @@ export default {
       }
 
     },
+
+
+    async getMultipleEventsUsingOpenSea() {
+
+      console.log('getMultipleEventsUsingOpenSea')
+
+      this.activityLoading = true
+
+      const offset = this.numActivityLoaded
+      const limit = this.batchsize
+
+      this.ActivityLoadingError = null
+      this.allActivityLoaded = false
+
+      if (this.numActivityLoaded == 0) {
+        this.ActivityList = []
+        this.initialActivityLoaded = false
+      }
+
+      const apiURLRoot = config.openseaAPI[this.networkid].URLRoot + '/events?'
+        + 'limit=' + limit + '&offset=' + offset
+
+      try {
+
+        const tasks = []
+
+        // console.log('listofuseraddress', this.listofuseraddress)
+
+        if (this.listofnft && this.listofnft.length > 0) {
+          for (let i = 0; i < this.listofnft.length; i++) {
+            const item = this.listofnft[i]
+            const url = apiURLRoot
+              + '&asset_contract_address=' + item.contractAddress
+              + '&token_id=' + item.tokenId
+            const job = this.callOpenSeaEventApi(url)
+            tasks.push(job)
+          }
+        }
+
+        if (this.listofuseraddress && this.listofuseraddress.length > 0) {
+          for (let i = 0; i < this.listofuseraddress.length; i++) {
+            const item = this.listofuseraddress[i]
+            const url = apiURLRoot
+              + '&account_address=' + item
+            const job = this.callOpenSeaEventApi(url)
+            tasks.push(job)
+          }
+        }
+
+        // console.log('total tasks: ', tasks.length)
+
+        await Promise.all(tasks)
+
+        this.ActivityList.sort(this.compareOpenSeaEvents)
+        this.initialActivityLoaded = true
+
+        // console.log('all tasks done')
+        console.log(this.ActivityList)
+
+      } catch (err) {
+        console.log(err)
+        this.ActivityLoadingError = "Error: Loading User Activities Failed."
+        this.initialActivityLoaded = true
+        this.allActivityLoaded = true
+        // this.showNotification('error', 'Error occurred!')
+      } finally {
+        this.activityLoading = false
+      }
+
+    },
+
+    compareOpenSeaEvents ( a, b ) {
+      if ( b.created_date.toLowerCase() < a.created_date.toLowerCase()){
+        return -1;
+      }
+      if ( b.created_date.toLowerCase() > a.created_date.toLowerCase()){
+        return 1;
+      }
+      return 0;
+    },
+
+    async callOpenSeaEventApi (apiURL) {
+
+      console.log('callOpenSeaEventApi', apiURL)
+
+      try {
+        const res = await this.$http.get(apiURL, {
+          headers: {
+             Accept: 'application/json',
+            'X-API-KEY': config.openseaAPIKey
+          }
+        })
+        // console.log(res)
+        const items = res.body.asset_events
+        for (let i = 0; i < items.length; i++) {
+          const item = items[i]
+          this.ActivityList.push(item)
+        }
+        this.numActivityLoaded += items.length
+      } catch (err) {
+        console.log(err)
+        console.log(err)
+        // this.showNotification('error', 'Error occurred!')
+      } finally {
+        // this.activityLoading = false
+      }
+
+    }
+
 
   },
   created () {
